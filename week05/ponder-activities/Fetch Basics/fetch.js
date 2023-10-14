@@ -1,7 +1,4 @@
-// fetch.js
 const url = "https://pokeapi.co/api/v2/pokemon/ditto";
-const outputList = document.querySelector("#outputList");
-const urlList = "https://pokeapi.co/api/v2/pokemon";
 let results = null;
 
 async function getPokemon(url) {
@@ -14,6 +11,31 @@ async function getPokemon(url) {
     doStuff(data);
   }
 }
+function doStuff(data) {
+  results = data;
+  const output = document.querySelector("#output");
+  const html = `<h2>${results.name}</h2>
+  <img src="${results.sprites.front_default}" alt="Image of ${results.name}">`;
+  output.innerHTML = html;
+  console.log("first: ", results);
+}
+getPokemon(url);
+console.log("second: ", results);
+
+//activity 2
+
+const outputList = document.querySelector("#outputList");
+const urlList = "https://pokeapi.co/api/v2/pokemon";
+
+function doStuffList(data) {
+  console.log(data);
+  const outputList = document.querySelector("#outputList");
+  const pokeList = data.results;
+  pokeList.forEach((currentItem) => {
+    const html = `<li>${currentItem.name}</li>`;
+    outputList.innerHTML += html;
+  });
+}
 
 async function getPokemonList(url) {
   const response = await fetch(url);
@@ -23,25 +45,11 @@ async function getPokemonList(url) {
   }
 }
 
-function doStuff(data) {
-  results = data;
-  const html = `<h2>${results.name}</h2>
-                <img src="${results.sprites.front_default}" alt="Image of ${results.name}">`;
-  outputElement.innerHTML = html;
-  console.log("first: ", results);
-}
-
-function doStuffList(data) {
-  console.log(data);
-  const pokeListElement = document.querySelector("#outputList");
-  const pokeList = data.results;
-  pokeList.forEach((currentItem) => {
-    const html = `<li>${currentItem.name}</li>`;
-    pokeListElement.innerHTML += html;
-  });
-}
-
 getPokemon(url);
 console.log("second: ", results);
 
 getPokemonList(urlList);
+
+function sortPokemon(list) {
+  list.arraysort();
+}
